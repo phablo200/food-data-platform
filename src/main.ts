@@ -1,5 +1,8 @@
 import express, { Request, Response } from "express";
-import foodRoutes from "./routes/food.route"; // Adjust the path if needed
+import foodRoutes from "./routes/food.route";
+import authRoutes from "./routes/auth.route";
+import { version } from "../package.json";
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,12 +18,13 @@ app.get("/health", (_req: Request, res: Response) => {
 app.get("/", (_req: Request, res: Response) => {
   res.json({
     service: "food-data-platform",
-    version: "0.1.0",
+    version: version,
   });
 });
 
 // Food routes
 app.use("/api", foodRoutes);
+app.use("/api", authRoutes);
 
 // Server
 app.listen(PORT, () => {

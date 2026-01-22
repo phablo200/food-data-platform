@@ -7,10 +7,13 @@ services:
     working_dir: /app
     ports:
       - "3000:3000"
+      - "9230:9229"  # debugger port
     volumes:
       - .:/app
     env_file:
       - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - db
       - redis
@@ -22,7 +25,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 

@@ -1,24 +1,27 @@
 import { FoodModel } from "../models/food.model";
+import foodRepository from "../repositories/food.repository";
 
 class FoodService {
   async createFood(name: string, image?: string): Promise<FoodModel> {
-    throw new Error("createFood not implemented");
+    const food: Omit<FoodModel, "id"> = { name, image };
+    return await foodRepository.create(food);
   }
 
   async getAllFoods(): Promise<FoodModel[]> {
-    throw new Error("getAllFoods not implemented");
+    return await foodRepository.findAll();
   }
 
   async getFoodById(id: string): Promise<FoodModel | null> {
-    throw new Error("getFoodById not implemented");
+    return await foodRepository.findById(id);
   }
 
   async updateFood(id: string, name?: string, image?: string): Promise<FoodModel | null> {
-    throw new Error("updateFood not implemented");
+    const updatedData: Partial<Omit<FoodModel, "id">> = { name, image };
+    return await foodRepository.update(id, updatedData);
   }
 
   async deleteFood(id: string): Promise<boolean> {
-    throw new Error("deleteFood not implemented");
+    return await foodRepository.delete(id);
   }
 }
 
